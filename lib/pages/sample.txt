@@ -1,0 +1,28 @@
+**Front-End** 
+Front-end Main Page Pahiram 8 
+Front-end Main Page Pasabay 8
+Pasabay Cards 5 
+Message Center 13 
+Fulfillment 13 
+Categories 5 
+
+[new]... 
+
+Pagination 13 
+Styling Whole Pasabay Page 5 
+Styling Whole Pahiram Page 5 
+Styling Profile Page 5 
+Delete Post Item 8 
+Update Post/Item 8 
+Upload Image file to Flutter 5 
+
+**Backend** 
+Implement limits (Pagination) 5 
+Uploading Image Files 5
+
+**FE BE Connection**
+
+Pasabay Post (Courier) 8 
+Pasabay Post(Request) 8 
+Pahiram Post(Rentee) 8 
+Pahiram Post(Rentor) 8 

@@ -18,6 +18,7 @@ class FakeWeatherRepository implements WeatherRepository {
 
         // Simulate some network exception
         if (random.nextBool()) {
+          //Basta meron lang dito na TRUE || FALSE
           throw NetworkException();
         }
 
