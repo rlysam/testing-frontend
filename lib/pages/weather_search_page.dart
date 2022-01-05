@@ -61,45 +61,49 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
   }
 
 //   Widget buildCardWithData(Weather weather) {
-  Widget buildCardWithData(Weather album) {
-    //   TODO: gumagana to, yung isa hindi... 
+  Widget buildCardWithData(Weather post) {
+    //   TODO: gumagana to, yung isa hindi...
 // var url = 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
-print(album.thumbnailUrl); //String
-print(album.thumbnailUrl.runtimeType);
-print(album.url);
-print(album.url.runtimeType); //String
     return Column(
       children: [
         Container(
-            color: Colors.amber,
-            
-            constraints: BoxConstraints(maxHeight: 400, maxWidth: 400, minWidth: 44, minHeight:44,),
+          color: Colors.amber,
+          constraints: BoxConstraints(
+            maxHeight: 400,
+            maxWidth: 400,
+            minWidth: 44,
+            minHeight: 44,
+          ),
           child: Image.network(
-            album.url,
+            post.image_location,
             fit: BoxFit.cover,
           ),
         ),
-        Card(
-          child: ListTile(
-            leading: ConstrainedBox(
-                constraints: BoxConstraints(
-                    maxHeight: 300,
-                    maxWidth: 300,
-                    minWidth: 44,
-                    minHeight: 44),
-                child: Image.network(
-                  album.thumbnailUrl,
-                  fit: BoxFit.cover,
-                )),
-            title: Text("post ID: " +
-                album.id.toString() +
-                " | " +
-                album.albumId.toString()), //id
-            subtitle: Text(album.title + " | " + album.url), //title
-            trailing: Icon(Icons.more_vert),
-            isThreeLine: true,
-          ),
-        ),
+        Row(children: [Text('Post ID:'), Text(post.post_id.toString())]),
+        Row(children: [Text('Post ID:'), Text(post.post_id.toString())]),
+        Row(children: [Text('post_id:'), Text(post.post_id.toString())]),
+        Row(children: [Text('user_id:'), Text(post.post_id.toString())]),
+        Row(children: [Text('title:'), Text(post.post_id.toString())]),
+        Row(children: [Text('first_name:'), Text(post.post_id.toString())]),
+        Row(children: [Text('last_name:'), Text(post.post_id.toString())]),
+        Row(children: [Text('type:'), Text(post.post_id.toString())]),
+        Row(children: [Text('points:'), Text(post.post_id.toString())]),
+        Row(children: [Text('location:'), Text(post.post_id.toString())]),
+        Row(children: [Text('destination:'), Text(post.post_id.toString())]),
+        Row(children: [Text('quantity:'), Text(post.post_id.toString())]),
+        Row(children: [Text('rate:'), Text(post.post_id.toString())]),
+        Row(children: [Text('time_posted:'), Text(post.post_id.toString())]),
+        Row(children: [Text('delivery_time:'), Text(post.post_id.toString())]),
+        Row(children: [Text('date:'), Text(post.post_id.toString())]),
+        Row(children: [Text('tags:'), Text(post.post_id.toString())]),
+        Row(children: [Text('image_location:'), Text(post.post_id.toString())]),
+        Row(children: [Text('status:'), Text(post.post_id.toString())]),
+        Row(children: [Text('participant_id:'), Text(post.post_id.toString())]),
+        Row(children: [ Text('participant_first_name:'), Text(post.post_id.toString()) ]),
+        Row(children: [ Text('participant_last_name:'), Text(post.post_id.toString()) ]),
+        Row(children: [Text('item:'), Text(post.post_id.toString())]),
+        Row(children: [Text('item_id:'), Text(post.post_id.toString())]),
+        Row(children: [Text('rent_due:'), Text(post.post_id.toString())]),
         CityInputField()
       ],
     );
@@ -116,7 +120,7 @@ class CityInputField extends StatelessWidget {
         textInputAction: TextInputAction.search,
         autofocus: true,
         decoration: InputDecoration(
-          hintText: "Enter ALBUM Post ID",
+          hintText: "Enter post ID",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           suffixIcon: Icon(Icons.search),
         ),
