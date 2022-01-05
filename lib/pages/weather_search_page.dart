@@ -34,7 +34,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
             } else if (state is WeatherLoading) {
               return buildLoading();
             } else if (state is WeatherLoaded) {
-              return buildColumnWithData(state.weather);
+              return buildCardWithData(state.weather);
             } else {
               // (state is WeatherError)
               return buildInitialInput();
@@ -57,30 +57,26 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
     );
   }
 
-  Column buildColumnWithData(Weather weather) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Text(
-          weather.cityName,
-          style: TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.w700,
-          ),
+//   Widget buildCardWithData(Weather weather) {
+  Widget buildCardWithData(Weather album) {
+    return Card(
+      child: SizedBox(
+          width: 600,
+        child: ListTile(
+        //   leading: Image.network(album.urlsmall),
+        //   leading: Image.network("https://via.placeholder.com/150/771796"),
+          title: Text("post ID: "+album.postID.toString() + " | " + album.idalbum.toString()),//id
+          subtitle: Text(album.title +" | "+ album.urlBig),//title
+          trailing: Icon(Icons.more_vert),
+          isThreeLine: true,
         ),
-        Text(
-          // Display the temperature with 1 decimal place
-          "${weather.temperatureCelsius.toStringAsFixed(1)} °C",
-          style: TextStyle(fontSize: 80),
-        ),
-        CityInputField(),
-      ],
+      ),
     );
   }
+
 }
 
 class CityInputField extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -90,7 +86,7 @@ class CityInputField extends StatelessWidget {
         textInputAction: TextInputAction.search,
         autofocus: true,
         decoration: InputDecoration(
-          hintText: "Enter a city",
+          hintText: "Enter ALBUM Post ID",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           suffixIcon: Icon(Icons.search),
         ),
@@ -98,8 +94,8 @@ class CityInputField extends StatelessWidget {
     );
   }
 
-  void submitCityName(BuildContext context, String cityName) {
+  void submitCityName(BuildContext context, String number) {
     final weatherCubit = context.read<WeatherCubit>();
-    weatherCubit.getWeather(cityName);
+    weatherCubit.getWeather(int.parse(number));
   }
 }

@@ -1,33 +1,35 @@
 import 'dart:math';
 
+import 'package:flutter_cubit_bloc_tutorial/data/weather_api.dart';
+
 import 'model/weather.dart';
 
 abstract class WeatherRepository {
   /// Throws [NetworkException].
-  Future<Weather> fetchWeather(String cityName);
+  Future<Weather> fetchWeather(int postID);
+//   ! Note: yung function definition lang sa repository
 }
 
 class FakeWeatherRepository implements WeatherRepository {
+
   @override
-  Future<Weather> fetchWeather(String cityName) {
+  Future<Weather> fetchWeather(int postID) async {
+      final source = await requestPasabayPostByID(postID);
     // Simulate network delay
     return Future.delayed(
       Duration(seconds: 1),
       () {
-        final random = Random();
 
+        final random = Random();
         // Simulate some network exception
+
         if (random.nextBool()) {
           //Basta meron lang dito na TRUE || FALSE
           throw NetworkException();
         }
 
         // Return "fetched" weather
-        return Weather(
-          cityName: cityName,
-          // Temperature between 20 and 35.99
-          temperatureCelsius: 20 + random.nextInt(15) + random.nextDouble(),
-        );
+        return Weather.fromMap(source);
       },
     );
   }
