@@ -23,10 +23,10 @@ class FakeWeatherRepository implements WeatherRepository {
         final random = Random();
         // Simulate some network exception
 
-        if (random.nextBool()) {
-          //Basta meron lang dito na TRUE || FALSE
-          throw NetworkException();
-        }
+        // if (random.nextBool()) {
+        //   //Basta meron lang dito na TRUE || FALSE
+        //   throw NetworkException();
+        // }
 
         // Return "fetched" weather
         return Weather.fromMap(source);

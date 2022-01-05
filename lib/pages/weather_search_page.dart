@@ -1,3 +1,6 @@
+import 'dart:html';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cubit_bloc_tutorial/cubit/weather_cubit.dart';
@@ -59,21 +62,48 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
 
 //   Widget buildCardWithData(Weather weather) {
   Widget buildCardWithData(Weather album) {
-    return Card(
-      child: SizedBox(
-          width: 600,
-        child: ListTile(
-        //   leading: Image.network(album.urlsmall),
-        //   leading: Image.network("https://via.placeholder.com/150/771796"),
-          title: Text("post ID: "+album.postID.toString() + " | " + album.idalbum.toString()),//id
-          subtitle: Text(album.title +" | "+ album.urlBig),//title
-          trailing: Icon(Icons.more_vert),
-          isThreeLine: true,
+    //   TODO: gumagana to, yung isa hindi... 
+var url = 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+    return Column(
+      children: [
+        Container(
+            color: Colors.amber,
+            
+            constraints: BoxConstraints(maxHeight: 150, maxWidth: 150, minWidth: 44, minHeight:44,),
+          child: Image.network(
+            url,
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
+        Card(
+          child: SizedBox(
+            width: 600,
+            child: ListTile(
+              //   leading: Image.network(album.urlsmall),
+              leading: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      maxHeight: 150,
+                      maxWidth: 150,
+                      minWidth: 44,
+                      minHeight: 44),
+                  child: Image.network(
+                    album.thumbnailUrl,
+                    fit: BoxFit.cover,
+                  )),
+              title: Text("post ID: " +
+                  album.id.toString() +
+                  " | " +
+                  album.albumId.toString()), //id
+              subtitle: Text(album.title + " | " + album.url), //title
+              trailing: Icon(Icons.more_vert),
+              isThreeLine: true,
+            ),
+          ),
+        ),
+        CityInputField()
+      ],
     );
   }
-
 }
 
 class CityInputField extends StatelessWidget {

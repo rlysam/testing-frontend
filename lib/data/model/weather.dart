@@ -3,53 +3,54 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 
 class Weather {
-  final int idalbum;
-  final int postID;
+  final int albumId;
+  final int id;
   final String title;
-  final String urlBig;
-  final String urlsmall;
+  final String url;
+  final String thumbnailUrl;
 
   Weather({
-    required this.idalbum,
-    required this.postID,
+    required this.albumId,
+    required this.id,
     required this.title,
-    required this.urlBig,
-    required this.urlsmall,
+    required this.url,
+    required this.thumbnailUrl,
   });
 
+
   Weather copyWith({
-    int? idalbum,
-    int? postID,
+    int? albumId,
+    int? id,
     String? title,
-    String? urlBig,
-    String? urlsmall,
+    String? url,
+    String? thumbnailUrl,
   }) {
     return Weather(
-      idalbum: idalbum ?? this.idalbum,
-      postID: postID ?? this.postID,
+      albumId: albumId ?? this.albumId,
+      id: id ?? this.id,
       title: title ?? this.title,
-      urlBig: urlBig ?? this.urlBig,
-      urlsmall: urlsmall ?? this.urlsmall,
+      url: url ?? this.url,
+      thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'idalbum': idalbum,
-      'postID': postID,
+      'albumId': albumId,
+      'id': id,
       'title': title,
-      'urlBig': urlBig,
-      'urlsmall': urlsmall,
+      'url': url,
+      'thumbnailUrl': thumbnailUrl,
     };
   }
 
   factory Weather.fromMap(Map<String, dynamic> map) {
     return Weather(
-      idalbum: map['idalbum']?.toInt() ?? 0,
-      postID: map['postID']?.toInt() ?? 0,
+      albumId: map['albumId']?.toInt() ?? 0,
+      id: map['id']?.toInt() ?? 0,
       title: map['title'] ?? '',
-      urlBig: map['urlBig'] ?? '',
-      urlsmall: map['urlsmall'] ?? '',
+      url: map['url'] ?? '',
+      thumbnailUrl: map['thumbnailUrl'] ?? '',
     );
   }
 
@@ -59,7 +60,7 @@ class Weather {
 
   @override
   String toString() {
-    return 'Weather(idalbum: $idalbum, postID: $postID, title: $title, urlBig: $urlBig, urlsmall: $urlsmall)';
+    return 'Weather(albumId: $albumId, id: $id, title: $title, url: $url, thumbnailUrl: $thumbnailUrl)';
   }
 
   @override
@@ -67,19 +68,19 @@ class Weather {
     if (identical(this, other)) return true;
   
     return other is Weather &&
-      other.idalbum == idalbum &&
-      other.postID == postID &&
+      other.albumId == albumId &&
+      other.id == id &&
       other.title == title &&
-      other.urlBig == urlBig &&
-      other.urlsmall == urlsmall;
+      other.url == url &&
+      other.thumbnailUrl == thumbnailUrl;
   }
 
   @override
   int get hashCode {
-    return idalbum.hashCode ^
-      postID.hashCode ^
+    return albumId.hashCode ^
+      id.hashCode ^
       title.hashCode ^
-      urlBig.hashCode ^
-      urlsmall.hashCode;
+      url.hashCode ^
+      thumbnailUrl.hashCode;
   }
 }
