@@ -64,48 +64,73 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
   Widget buildCardWithData(Weather post) {
     //   TODO: gumagana to, yung isa hindi...
 // var url = 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+    var map = post.toMap();
+    final listKeys = map.values.toList(growable: true);
+    final listValues = map.keys.toList(growable: true);
+
     return Column(
       children: [
         Container(
           color: Colors.amber,
           constraints: BoxConstraints(
-            maxHeight: 400,
-            maxWidth: 400,
-            minWidth: 44,
-            minHeight: 44,
+            maxHeight: 200,
+            maxWidth: 200,
+            minWidth: 200,
+            minHeight: 200,
           ),
           child: Image.network(
             post.image_location,
+            // post.url,
             fit: BoxFit.cover,
           ),
         ),
-        Row(children: [Text('Post ID:'), Text(post.post_id.toString())]),
-        Row(children: [Text('Post ID:'), Text(post.post_id.toString())]),
-        Row(children: [Text('post_id:'), Text(post.post_id.toString())]),
-        Row(children: [Text('user_id:'), Text(post.post_id.toString())]),
-        Row(children: [Text('title:'), Text(post.post_id.toString())]),
-        Row(children: [Text('first_name:'), Text(post.post_id.toString())]),
-        Row(children: [Text('last_name:'), Text(post.post_id.toString())]),
-        Row(children: [Text('type:'), Text(post.post_id.toString())]),
-        Row(children: [Text('points:'), Text(post.post_id.toString())]),
-        Row(children: [Text('location:'), Text(post.post_id.toString())]),
-        Row(children: [Text('destination:'), Text(post.post_id.toString())]),
-        Row(children: [Text('quantity:'), Text(post.post_id.toString())]),
-        Row(children: [Text('rate:'), Text(post.post_id.toString())]),
-        Row(children: [Text('time_posted:'), Text(post.post_id.toString())]),
-        Row(children: [Text('delivery_time:'), Text(post.post_id.toString())]),
-        Row(children: [Text('date:'), Text(post.post_id.toString())]),
-        Row(children: [Text('tags:'), Text(post.post_id.toString())]),
-        Row(children: [Text('image_location:'), Text(post.post_id.toString())]),
-        Row(children: [Text('status:'), Text(post.post_id.toString())]),
-        Row(children: [Text('participant_id:'), Text(post.post_id.toString())]),
-        Row(children: [ Text('participant_first_name:'), Text(post.post_id.toString()) ]),
-        Row(children: [ Text('participant_last_name:'), Text(post.post_id.toString()) ]),
-        Row(children: [Text('item:'), Text(post.post_id.toString())]),
-        Row(children: [Text('item_id:'), Text(post.post_id.toString())]),
-        Row(children: [Text('rent_due:'), Text(post.post_id.toString())]),
+        Expanded(
+          child: ListView.builder(
+            itemCount: map.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Center(
+                    child: SizedBox(
+                      width: 400,
+                      child: Card(
+                        child: ListTile(
+                          title: Text(listKeys[index].toString()),
+                          subtitle: Text(listValues[index].toString()),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
         CityInputField()
       ],
+    );
+  }
+
+  Widget buildDataMap(Weather post) {
+    print("Laman ng data: " + post.toString());
+    var values = post.toMap();
+    // Map<String, dynamic> values = post.toMap();
+    return new ListView.builder(
+      itemCount: values.length,
+      itemBuilder: (BuildContext context, int index) {
+        String key = values.keys.elementAt(index);
+        return new Column(
+          children: <Widget>[
+            new ListTile(
+              title: new Text("$key"),
+              subtitle: new Text("${values[key].toString()}"),
+            ),
+            new Divider(
+              height: 2.0,
+            ),
+          ],
+        );
+      },
     );
   }
 }
