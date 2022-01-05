@@ -63,41 +63,41 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
 //   Widget buildCardWithData(Weather weather) {
   Widget buildCardWithData(Weather album) {
     //   TODO: gumagana to, yung isa hindi... 
-var url = 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+// var url = 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+print(album.thumbnailUrl); //String
+print(album.thumbnailUrl.runtimeType);
+print(album.url);
+print(album.url.runtimeType); //String
     return Column(
       children: [
         Container(
             color: Colors.amber,
             
-            constraints: BoxConstraints(maxHeight: 150, maxWidth: 150, minWidth: 44, minHeight:44,),
+            constraints: BoxConstraints(maxHeight: 400, maxWidth: 400, minWidth: 44, minHeight:44,),
           child: Image.network(
-            url,
+            album.url,
             fit: BoxFit.cover,
           ),
         ),
         Card(
-          child: SizedBox(
-            width: 600,
-            child: ListTile(
-              //   leading: Image.network(album.urlsmall),
-              leading: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      maxHeight: 150,
-                      maxWidth: 150,
-                      minWidth: 44,
-                      minHeight: 44),
-                  child: Image.network(
-                    album.thumbnailUrl,
-                    fit: BoxFit.cover,
-                  )),
-              title: Text("post ID: " +
-                  album.id.toString() +
-                  " | " +
-                  album.albumId.toString()), //id
-              subtitle: Text(album.title + " | " + album.url), //title
-              trailing: Icon(Icons.more_vert),
-              isThreeLine: true,
-            ),
+          child: ListTile(
+            leading: ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxHeight: 300,
+                    maxWidth: 300,
+                    minWidth: 44,
+                    minHeight: 44),
+                child: Image.network(
+                  album.thumbnailUrl,
+                  fit: BoxFit.cover,
+                )),
+            title: Text("post ID: " +
+                album.id.toString() +
+                " | " +
+                album.albumId.toString()), //id
+            subtitle: Text(album.title + " | " + album.url), //title
+            trailing: Icon(Icons.more_vert),
+            isThreeLine: true,
           ),
         ),
         CityInputField()
