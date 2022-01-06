@@ -1,4 +1,4 @@
-part of 'weather_cubit.dart';
+part of 'post_cubit.dart';
 
 @immutable
 abstract class WeatherState {
@@ -14,7 +14,7 @@ class WeatherLoading extends WeatherState {
 }
 
 class WeatherLoaded extends WeatherState {
-  final Weather weather;
+  final Post weather;
   const WeatherLoaded(this.weather);
 
   @override

@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_cubit_bloc_tutorial/cubit/weather_cubit.dart';
-import 'package:flutter_cubit_bloc_tutorial/data/model/weather.dart';
+import 'package:flutter_cubit_bloc_tutorial/cubit/post_cubit.dart';
+import 'package:flutter_cubit_bloc_tutorial/data/model/posts.dart';
 
 class WeatherSearchPage extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Weather Search"),
+        title: Text("Displaying Bulk of Posts"),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
@@ -61,7 +61,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
   }
 
 //   Widget buildCardWithData(Weather weather) {
-  Widget buildCardWithData(Weather post) {
+  Widget buildCardWithData(Post post) {
     //   TODO: gumagana to, yung isa hindi...
 // var url = 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
     var map = post.toMap();
@@ -111,7 +111,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
     );
   }
 
-  Widget buildDataMap(Weather post) {
+  Widget buildDataMap(Post post) {
     print("Laman ng data: " + post.toString());
     var values = post.toMap();
     // Map<String, dynamic> values = post.toMap();

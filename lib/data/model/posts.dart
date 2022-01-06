@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:meta/meta.dart';
 
-class Weather {
+class Post {
   final String post_id;
   final String user_id;
   final String title;
@@ -30,7 +30,7 @@ class Weather {
   final String item_id;
   final String rent_due;
 
-  Weather({
+  Post({
     required this.post_id,
     required this.user_id,
     required this.title,
@@ -56,7 +56,7 @@ class Weather {
     required this.rent_due,
   });
 
-  Weather copyWith({
+  Post copyWith({
     String? post_id,
     String? user_id,
     String? title,
@@ -81,7 +81,7 @@ class Weather {
     String? item_id,
     String? rent_due,
   }) {
-    return Weather(
+    return Post(
       post_id: post_id ?? this.post_id,
       user_id: user_id ?? this.user_id,
       title: title ?? this.title,
@@ -136,8 +136,8 @@ class Weather {
     };
   }
 
-  factory Weather.fromMap(Map<String, dynamic> map) {
-    return Weather(
+  factory Post.fromMap(Map<String, dynamic> map) {
+    return Post(
       post_id: map['post_id'] ?? '',
       user_id: map['user_id'] ?? '',
       title: map['title'] ?? '',
@@ -166,7 +166,7 @@ class Weather {
 
   String toJson() => json.encode(toMap());
 
-  factory Weather.fromJson(String source) => Weather.fromMap(json.decode(source));
+  factory Post.fromJson(String source) => Post.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -177,7 +177,7 @@ class Weather {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return other is Weather &&
+    return other is Post &&
       other.post_id == post_id &&
       other.user_id == user_id &&
       other.title == title &&
