@@ -7,6 +7,7 @@ import 'package:flutter_cubit_bloc_tutorial/cubit/post_cubit.dart';
 import 'package:flutter_cubit_bloc_tutorial/cubit/posts_data_cubit.dart';
 import 'package:flutter_cubit_bloc_tutorial/data/model/posts.dart';
 import 'package:flutter_cubit_bloc_tutorial/data/model/posts_data.dart';
+import 'package:flutter_cubit_bloc_tutorial/widgets/post_widget.dart';
 
 class WeatherSearchPage extends StatefulWidget {
   @override
@@ -68,42 +69,29 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
 
 //   Widget buildCardWithData(Weather weather) {
   Widget buildCardWithData(PostsData postsData) {
+// posts data ay binigay dito, tapos..
     var map = postsData.toMap();
-    // ! HELLO
-    // ito yung...
-    // {
-    // "total_posts": 17,
-    // "total_pages": 2,
-    // "posts": []
-    // }
-    // TODO to List of Posts naman
-    // List<Map> allPostsData = map.values .toList(growable: true);
-    var posts = map.entries.map((entry) => "${entry.key} + ${entry.value}").toList();
-    // List<Post> listPosts = posts.map((e) => "${e.key} + ${e.value}").toList());
-    print(posts);
+    var sam = map['posts']; //LIST of posts
 
-    // final listKeys = map.values.toList(growable: true);
-    // final listValues = map.keys.toList(growable: true);
+// Gagawin natin List of Post para...
+    List<Post> batchOfPosts = [];
+    Post onePost;
+
+    sam.forEach((post) {
+      onePost = new Post.fromMap(post); //post single
+      batchOfPosts.add(onePost);
+    });
+
+    // mag generate ng ListView.builder...
 
     return ListView(
       children: [
         Expanded(
           child: ListView.builder(
             shrinkWrap: true,
-            itemCount: map.length,
+            itemCount: batchOfPosts.length,
             itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Center(
-                    child: SizedBox(
-                      width: 400,
-                      child: Card(
-                        child: ListTile(),
-                      ),
-                    ),
-                  ),
-                ],
-              );
+              return PostWidget(data: batchOfPosts[index]);
             },
           ),
         ),
