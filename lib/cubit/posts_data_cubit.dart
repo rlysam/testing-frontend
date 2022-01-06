@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 part 'posts_data_state.dart';
 
-class PostsDataCubit extends Cubit<PostsDataSatte> {
+class PostsDataCubit extends Cubit<PostsDataState> {
   final WeatherRepository _bulkdataRepository;
 
   PostsDataCubit(this._bulkdataRepository) : super(PostsDataInitial());
@@ -18,7 +18,7 @@ class PostsDataCubit extends Cubit<PostsDataSatte> {
       //   FIXME:  Baka dito yun may mali? if ever
       emit(PostsDataLoaded(bulkData));
     } on NetworkException {
-      emit(PostDataError("Couldn't fetch weather. Is the device online?"));
+      emit(PostsDataError("Couldn't fetch weather. Is the device online?"));
     }
   }
 }

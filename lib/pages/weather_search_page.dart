@@ -4,7 +4,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cubit_bloc_tutorial/cubit/post_cubit.dart';
+import 'package:flutter_cubit_bloc_tutorial/cubit/posts_data_cubit.dart';
 import 'package:flutter_cubit_bloc_tutorial/data/model/posts.dart';
+import 'package:flutter_cubit_bloc_tutorial/data/model/posts_data.dart';
 
 class WeatherSearchPage extends StatefulWidget {
   @override
@@ -21,25 +23,24 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 16),
         alignment: Alignment.center,
-        child: BlocConsumer<WeatherCubit, WeatherState>(
+        child: BlocConsumer<PostsDataCubit, PostsDataState>(
           listener: (context, state) {
-            if (state is WeatherError) {
-              Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                ),
-              );
-            }
+            // if (state is PostsDataError) {
+            //   Scaffold.of(context).showSnackBar(
+            //     SnackBar(
+            //       content: Text(state.message),
+            //     ),
+            //   );
+            // }
           },
           builder: (context, state) {
-            if (state is WeatherInitial) {
+            if (state is PostsDataInitial) {
               return buildInitialInput();
-            } else if (state is WeatherLoading) {
+            } else if (state is PostsDataLoading) {
               return buildLoading();
-            } else if (state is WeatherLoaded) {
-              return buildCardWithData(state.weather);
+            } else if (state is PostsDataLoaded) {
+              return buildCardWithData(state.postsData);
             } else {
-              // (state is WeatherError)
               return buildInitialInput();
             }
           },
@@ -50,7 +51,12 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
 
   Widget buildInitialInput() {
     return Center(
-      child: CityInputField(),
+      child: Column(
+        children: [
+          Text('Type ka ng page number...'),
+          CityInputField(),
+        ],
+      ),
     );
   }
 
@@ -61,31 +67,29 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
   }
 
 //   Widget buildCardWithData(Weather weather) {
-  Widget buildCardWithData(Post post) {
-    //   TODO: gumagana to, yung isa hindi...
-// var url = 'https://images.pexels.com/photos/213780/pexels-photo-213780.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
-    var map = post.toMap();
-    final listKeys = map.values.toList(growable: true);
-    final listValues = map.keys.toList(growable: true);
+  Widget buildCardWithData(PostsData postsData) {
+    var map = postsData.toMap();
+    // ! HELLO
+    // ito yung...
+    // {
+    // "total_posts": 17,
+    // "total_pages": 2,
+    // "posts": []
+    // }
+    // TODO to List of Posts naman
+    // List<Map> allPostsData = map.values .toList(growable: true);
+    var posts = map.entries.map((entry) => "${entry.key} + ${entry.value}").toList();
+    // List<Post> listPosts = posts.map((e) => "${e.key} + ${e.value}").toList());
+    print(posts);
 
-    return Column(
+    // final listKeys = map.values.toList(growable: true);
+    // final listValues = map.keys.toList(growable: true);
+
+    return ListView(
       children: [
-        Container(
-          color: Colors.amber,
-          constraints: BoxConstraints(
-            maxHeight: 200,
-            maxWidth: 200,
-            minWidth: 200,
-            minHeight: 200,
-          ),
-          child: Image.network(
-            post.image_location,
-            // post.url,
-            fit: BoxFit.cover,
-          ),
-        ),
         Expanded(
           child: ListView.builder(
+            shrinkWrap: true,
             itemCount: map.length,
             itemBuilder: (context, index) {
               return Column(
@@ -94,10 +98,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
                     child: SizedBox(
                       width: 400,
                       child: Card(
-                        child: ListTile(
-                          title: Text(listKeys[index].toString()),
-                          subtitle: Text(listValues[index].toString()),
-                        ),
+                        child: ListTile(),
                       ),
                     ),
                   ),
@@ -111,28 +112,28 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
     );
   }
 
-  Widget buildDataMap(Post post) {
-    print("Laman ng data: " + post.toString());
-    var values = post.toMap();
-    // Map<String, dynamic> values = post.toMap();
-    return new ListView.builder(
-      itemCount: values.length,
-      itemBuilder: (BuildContext context, int index) {
-        String key = values.keys.elementAt(index);
-        return new Column(
-          children: <Widget>[
-            new ListTile(
-              title: new Text("$key"),
-              subtitle: new Text("${values[key].toString()}"),
-            ),
-            new Divider(
-              height: 2.0,
-            ),
-          ],
-        );
-      },
-    );
-  }
+//   Widget buildDataMap(Post post) {
+//     print("Laman ng data: " + post.toString());
+//     var values = post.toMap();
+//     // Map<String, dynamic> values = post.toMap();
+//     return new ListView.builder(
+//       itemCount: values.length,
+//       itemBuilder: (BuildContext context, int index) {
+//         String key = values.keys.elementAt(index);
+//         return new Column(
+//           children: <Widget>[
+//             new ListTile(
+//               title: new Text("$key"),
+//               subtitle: new Text("${values[key].toString()}"),
+//             ),
+//             new Divider(
+//               height: 2.0,
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
 }
 
 class CityInputField extends StatelessWidget {
@@ -141,11 +142,11 @@ class CityInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: TextField(
-        onSubmitted: (value) => submitCityName(context, value),
+        onSubmitted: (value) => submitPageNumber(context, value),
         textInputAction: TextInputAction.search,
         autofocus: true,
         decoration: InputDecoration(
-          hintText: "Enter post ID",
+          hintText: "Enter Page Number",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           suffixIcon: Icon(Icons.search),
         ),
@@ -153,8 +154,8 @@ class CityInputField extends StatelessWidget {
     );
   }
 
-  void submitCityName(BuildContext context, String number) {
-    final weatherCubit = context.read<WeatherCubit>();
-    weatherCubit.getWeather(int.parse(number));
+  void submitPageNumber(BuildContext context, String pahinaNumero) {
+    final postsDataCubit = context.read<PostsDataCubit>();
+    postsDataCubit.get10Posts(int.parse(pahinaNumero));
   }
 }

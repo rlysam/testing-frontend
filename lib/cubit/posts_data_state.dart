@@ -1,19 +1,19 @@
 part of 'posts_data_cubit.dart';
 
 @immutable
-abstract class PostsDataSatte {
-  const PostsDataSatte();
+abstract class PostsDataState {
+  const PostsDataState();
 }
 
-class PostsDataInitial extends PostsDataSatte {
+class PostsDataInitial extends PostsDataState {
   const PostsDataInitial();
 }
 
-class PostsDataLoading extends PostsDataSatte {
+class PostsDataLoading extends PostsDataState {
   const PostsDataLoading();
 }
 
-class PostsDataLoaded extends PostsDataSatte {
+class PostsDataLoaded extends PostsDataState {
   final PostsData postsData;
   const PostsDataLoaded(this.postsData);
 
@@ -28,15 +28,15 @@ class PostsDataLoaded extends PostsDataSatte {
   int get hashCode => postsData.hashCode;
 }
 
-class PostDataError extends PostsDataSatte {
+class PostsDataError extends PostsDataState {
   final String message;
-  const PostDataError(this.message);
+  const PostsDataError(this.message);
 
   @override
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is PostDataError && o.message == message;
+    return o is PostsDataError && o.message == message;
   }
 
   @override
